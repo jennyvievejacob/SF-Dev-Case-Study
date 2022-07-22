@@ -1,0 +1,106 @@
+<template>
+    <lightning-card  variant="Narrow"  title="New Delivery" icon-name="standard:orders">
+        
+        <lightning-layout>
+            <!-- +FROM WAREHOUSE -->
+            <lightning-layout-item size="6" padding="around-small">
+                <lightning-combobox
+                    label="From Warehouse"
+                    required="true"
+                    value={fromWarehouseValue}
+                    placeholder="Select warehouse"
+                    options={fromWarehouseOptions}
+                    onchange={onChangeFromWarehouse} >
+                </lightning-combobox>
+            </lightning-layout-item>
+            <!-- -FROM WAREHOUSE -->
+
+            <!-- +TO WAREHOUSE -->
+            <lightning-layout-item size="6" padding="around-small">
+                <lightning-combobox
+                    label="To Warehouse"
+                    disabled={disableToWarehouse}
+                    required="true"
+                    value={value}
+                    placeholder="Select warehouse"
+                    options={toWarehouseOptions}
+                    onchange={onChangeToWarehouse} >
+                </lightning-combobox>
+            </lightning-layout-item>
+            <!-- -TO WAREHOUSE -->
+        </lightning-layout>
+
+        <lightning-layout>
+            <!-- +TRUCK-->
+            <lightning-layout-item size="6" padding="around-small">
+                <lightning-combobox
+                    label="Truck"
+                    required="true"
+                    disabled={disableTrucks}
+                    value={value}
+                    placeholder="Select truck"
+                    options={truckOptions}
+                    onchange={onChangeTruck} >
+                </lightning-combobox>
+            </lightning-layout-item>
+            <!-- -TRUCK -->
+
+            <!-- +TRUCK STATUS -->
+            <lightning-layout-item size="6" padding="around-small">
+                <lightning-combobox
+                    label="Status"
+                    required="true"
+                    disabled={disableTruckStatus}
+                    value={truckStatusValue}
+                    placeholder="Select status"
+                    options={truckStatusOptions}
+                    onchange={onChangeTruckStatus} >
+                </lightning-combobox>
+            </lightning-layout-item>
+            <!-- -TRUCK STATUS -->
+        </lightning-layout>
+
+        <div class="slds-p-around_small">
+            <p>Estimated time of arrival: <lightning-formatted-text value={eta} ></lightning-formatted-text></p>
+        </div>
+        <br/>
+        <!-- +DELIVERY CONTENTS -->
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-tru ncate">Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate">Amount Available</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate">Delivery Content Amount</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={deliveryContentsList} for:item='del' for:index="prodIndex">
+                    <tr class="slds-hint-parent" key={del.prodItemId}>
+                        <td>
+                            <div class="slds-truncate">{del.prodName}</div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate">{del.amountAvailable}</div>
+                        </td>
+                        <td>
+                            <lightning-input data-index={prodIndex} data-id="delivery" type="number" value={del.deliveryAmount} disabled={disabledDelAmount} onchange={handleInputChange}></lightning-input>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <!-- -DELIVERY CONTENTS -->
+
+        <p slot="footer">
+            <lightning-button variant="brand" label="Save" onclick={onSave} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button label="Cancel" onclick={onCancel} class="slds-m-left_x-small"></lightning-button>
+        </p>
+    </lightning-card>
+        
+</template>

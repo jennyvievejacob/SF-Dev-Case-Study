@@ -1,0 +1,62 @@
+<aura:component controller="ProductInventoryController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="searchString" type="string"/>
+    <aura:attribute name="prodList" type="List"/>
+    <aura:attribute name="warehouseList" type="List"/>
+    <aura:attribute name="showTable" type="Boolean" default="false"/>
+    <aura:attribute name="showNoResult" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card iconName="standard:search" title="Search Products">
+        <lightning:layout verticalAlign="end" class="slds-p-left_small">
+            <lightning:layoutItem size="3">
+                <lightning:input name="searchText" value="{!v.searchString}" placeholder="Search product name or code"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem class="slds-p-left_small">
+                <lightning:button variant="brand" label="Search" onclick="{!c.searchProducts}"/>
+            </lightning:layoutItem>
+            <div class="slds-p-left_small">
+               <lightning:buttonMenu 
+                                     onselect="{!c.handleSelect }" 
+                                     iconName="utility:filterList" 
+                                     variant="border-filled"
+                                     aura:id="filterWarehouse">
+                   <aura:iteration items="{!v.warehouseList}" var="ware">
+                       <lightning:menuItem aura:id="menuItems" label="{!ware.Name}" value="{!ware.Name}" checked="false"/>
+                   </aura:iteration>
+                </lightning:buttonMenu>
+            </div>
+        </lightning:layout>
+        
+        <br/>
+        
+        <aura:if isTrue="{!v.showTable}">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered slds-table_fixed-layout">
+                <thead>
+                    <tr class="slds-text-heading_label">
+                        <th scope="col"><div class="slds-truncate" title="Name">Product Name</div></th>
+                        <th scope="col"><div class="slds-truncate" title="Product Code">Product Code</div></th>
+                        <th scope="col"><div class="slds-truncate" title="Warehouse">Warehouse</div></th>
+                        <th scope="col"><div class="slds-truncate" title="Current">Current</div></th>
+                        <th scope="col"><div class="slds-truncate" title="Amount Available">Amount Available</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.prodList}" var="prod">
+                        <tr>
+                            <td><div class="slds-truncate">{!prod.Product__r.Name}</div></td>
+                            <td><div class="slds-truncate">{!prod.Product__r.Product_Code__c}</div></td>
+                            <td><div class="slds-truncate">{!prod.Warehouse__r.Name}</div></td>
+                            <td><div class="slds-truncate">{!prod.Current__c}</div></td>
+                            <td><div class="slds-truncate">{!prod.Amount_Available__c}</div></td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </aura:if>
+        
+        <aura:if isTrue="{!v.showNoResult}">
+            <h3 class="slds-p-left_small">No result found</h3>
+        </aura:if>
+        
+    </lightning:card>
+</aura:component>

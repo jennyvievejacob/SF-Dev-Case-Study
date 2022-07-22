@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>current_amount_insufficient</fullName>
+    <active>true</active>
+    <description>Related product has a current amount lower than the Delivery content amount</description>
+    <errorConditionFormula>Amount__c &gt; Item__r.Total_Available_Count__c</errorConditionFormula>
+    <errorDisplayField>Amount__c</errorDisplayField>
+    <errorMessage>Amount inputted is lesser than the item&apos;s inventory</errorMessage>
+</ValidationRule>

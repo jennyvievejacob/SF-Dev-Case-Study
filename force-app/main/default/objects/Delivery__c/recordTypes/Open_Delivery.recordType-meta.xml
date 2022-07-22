@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Open_Delivery</fullName>
+    <active>true</active>
+    <description>Record type for creating new deliveries</description>
+    <label>Open Delivery</label>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>En-route</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parked</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+</RecordType>

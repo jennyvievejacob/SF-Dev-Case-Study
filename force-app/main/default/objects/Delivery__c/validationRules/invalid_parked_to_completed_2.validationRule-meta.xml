@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>invalid_parked_to_completed_2</fullName>
+    <active>true</active>
+    <errorConditionFormula>(ISPICKVAL(PRIORVALUE( Status__c ),&quot;Parked&quot;) &amp;&amp; ISPICKVAL( Status__c , &quot;Completed&quot;))</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Status cannot change from Parked to Completed</errorMessage>
+</ValidationRule>

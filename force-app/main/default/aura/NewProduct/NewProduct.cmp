@@ -1,0 +1,43 @@
+<aura:component controller="ProductItemController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="prodName" type="String"/>
+    <aura:attribute name="prodCode" type="String"/>
+    <aura:attribute name="amountVal" type="Decimal" default="0"/>
+    <aura:attribute name="warehouseList" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card iconName="custom:custom5" title="New Product Item">
+        <lightning:layout>
+        <lightning:layoutItem size="6" class="slds-p-around_x-small">
+            <lightning:input value="{!v.prodName}" label="Product Name" required="true"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="6" class="slds-p-around_x-small">
+            <lightning:input value="{!v.prodCode}" label="Product Code" required="true"/>
+        </lightning:layoutItem>
+        </lightning:layout>
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered slds-table_fixed-layout">
+            <thead>
+                <tr class="slds-text-heading_label">
+                    <th scope="col"><div class="slds-truncate" title="Warehouse">Warehouse</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Amount Available">Amount Available</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.warehouseList}" var="ware">
+                    <tr>
+                        <td><div class="slds-truncate">{!ware.Name}</div></td>
+                        <td>
+                            <lightning:layoutItem size="3">
+                                <lightning:input value="{!v.amountVal}"/>
+                            </lightning:layoutItem>
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        <br/>
+        <div class="slds-align_absolute-center">
+            <lightning:button variant="brand" label="Save" onclick="{!c.onSave}"/>
+            <lightning:button label="Cancel" onclick="{!c.onCancel}"/>
+        </div>
+    </lightning:card>
+</aura:component>

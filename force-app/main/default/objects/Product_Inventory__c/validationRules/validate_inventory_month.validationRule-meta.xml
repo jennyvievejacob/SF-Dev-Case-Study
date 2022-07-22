@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>validate_inventory_month</fullName>
+    <active>true</active>
+    <description>Should only be between 1-12</description>
+    <errorConditionFormula>OR(Inventory_Month__c &lt; 1, Inventory_Month__c &gt; 12)</errorConditionFormula>
+    <errorDisplayField>Inventory_Month__c</errorDisplayField>
+    <errorMessage>Invalid month value. It should be between 1-12</errorMessage>
+</ValidationRule>

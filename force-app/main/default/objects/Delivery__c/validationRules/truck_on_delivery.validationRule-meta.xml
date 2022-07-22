@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>truck_on_delivery</fullName>
+    <active>true</active>
+    <description>Truck is en route to delivery</description>
+    <errorConditionFormula>ISPICKVAL(Truck__r.Status__c, &apos;On Delivery&apos;) &amp;&amp; ISNEW()</errorConditionFormula>
+    <errorDisplayField>Truck__c</errorDisplayField>
+    <errorMessage>Truck is currently on a delivery task</errorMessage>
+</ValidationRule>
