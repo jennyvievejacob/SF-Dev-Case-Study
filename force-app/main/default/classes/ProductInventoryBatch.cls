@@ -34,11 +34,12 @@ public class ProductInventoryBatch implements Database.Batchable<sObject> {
             newProdInvList.add(newRec);
             updateProdInvList.add(oldRec);
         }
+        //null checker
+        if(newProdInvList.size() > 0)
+            insert newProdInvList;
         
-        if(newProdInvList.size() > 0){
-            Insert newProdInvList;
-            Update updateProdInvList;
-        }
+        if(updateProdInvList.size() > 0)
+            update updateProdInvList;
     }
     
     //finish

@@ -3,13 +3,11 @@ public class IncomingShipmentTriggerHandler {
     public static void incomingShipmentInsert(List<Incoming_Shipment__c> shipList) {
         Set<String> prodCodeSet = new Set<String>();
         Set<String> warehouseSet = new Set<String>();
-        Set<Double> countSet = new Set<Double>();
         
         for(Incoming_Shipment__c ship : shipList){
             //add values to containers
             prodCodeSet.add(ship.Product_Code__c);
             warehouseSet.add(ship.Warehouse__c);
-            countSet.add(ship.Count__c);
         }
 		
         //Check product from Product_Item_c
@@ -21,7 +19,7 @@ public class IncomingShipmentTriggerHandler {
                                                   FROM Product_inventory__c
                                                   WHERE Warehouse__c IN: warehouseSet
                                                   AND Current__c = TRUE
-                                                  ORDER BY CreatedDate ASC LIMIT 1];
+                                                  AND Product__r.Product_code__c IN: prodCodeSet];
 
         for(Incoming_Shipment__c ship : shipList){
             if(prodItemList.size() == 0){
@@ -29,17 +27,20 @@ public class IncomingShipmentTriggerHandler {
                 ship.addError('No product found');
             }
             else if(prodItemList.size() != 0){
+                Boolean flag = false;
                 //compare products with same warehouse between product inventory and incoming shipment
                 for(Product_Inventory__c inv : prodInvList){
                     if(ship.Product_Code__c == inv.Product__r.Product_code__c){
                         //increment amount available in inventory
                         inv.Amount_available__c = inv.Amount_available__c + ship.Count__c;
+                        flag = true;
                     }
                 }
+                //create product inventory bool if flag is false
             }
         }
         //update inventory
-        update prodInvList;
+        if(prodInvList != null && prodInvList.size() > 0)
+        	update prodInvList;
     }
-    
 }

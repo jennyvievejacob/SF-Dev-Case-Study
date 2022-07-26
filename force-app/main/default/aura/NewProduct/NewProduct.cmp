@@ -24,10 +24,10 @@
             <tbody>
                 <aura:iteration items="{!v.warehouseList}" var="ware">
                     <tr>
-                        <td><div class="slds-truncate">{!ware.Name}</div></td>
+                        <td><div class="slds-truncate">{!ware.name}</div></td>
                         <td>
                             <lightning:layoutItem size="3">
-                                <lightning:input value="{!v.amountVal}"/>
+                                <lightning:input value="{!ware.amountAvailable}"/>
                             </lightning:layoutItem>
                         </td>
                     </tr>

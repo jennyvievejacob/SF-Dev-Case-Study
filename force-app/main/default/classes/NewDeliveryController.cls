@@ -63,7 +63,7 @@ public with sharing class NewDeliveryController {
         newDel.Name = 'Temp';
         newDel.Truck__c = truck;
         newDel.From_Warehouse__c = fromWarehouse;
-        newDel.To_Warehouse__c = fromWarehouse;
+        newDel.To_Warehouse__c = toWarehouse;
         newDel.Route__c = route.Id;
         newDel.Status__c = status;
         insert newDel;

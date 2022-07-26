@@ -11,8 +11,9 @@ public class ProductInventoryController {
         searchKey = '%' + searchKey + '%';
         return [SELECT Id, Amount_Available__c, Product__r.Name, Product__r.Product_Code__c, Warehouse__r.Name, Current__c
                 FROM Product_Inventory__c 
-                WHERE Product__r.Name LIKE :searchKey 
-                OR Product__r.Product_Code__c LIKE :searchKey];
+                WHERE (Product__r.Name LIKE :searchKey 
+                OR Product__r.Product_Code__c LIKE :searchKey)
+               	AND Current__c = true];
     }
     
     @AuraEnabled
